@@ -72,14 +72,14 @@ def rotate_web_pass(record, params, driver):
     print (rf'Rotating Password for "{record.title}" in {record.login_url[:50]}...')
     driver.get(record.login_url)
     
-    # Login to your site here...
+    # TODO : Login to your site here...
 
     # TODO : Navigate to Reset password Page here... 
 
     # Generate Random Passowrd as below... 
     new_gen_pass = generate(16)
     
-    # Change in the reset password page in website 
+    # TODO : Change in the reset password page in website 
     # If success in website update record in Keeper Security as below...
     record.password = new_gen_pass
     if update_record(params, record):
@@ -109,10 +109,10 @@ if __name__ == "__main__":
         input_sheet = data_in[data_in.get_sheet_names()[0]]
         logins_list = get_all_keeper_records(params)
         # Open Chrome to change password in the website of interest
-        driver = webdriver.Chrome() # chromedriver.exe in same PATH environment variable or in this script path
+        driver = webdriver.Chrome() # chromedriver.exe is in system PATH or in this script's path
         # For Each UID in Excel input rotate passwords
         for rows in range(3 , input_sheet.max_row+1):
-            uid = input_sheet.cell(rows, 2).value # uid is in 2nd columns
+            uid = input_sheet.cell(rows, 2).value # UIDs are in 2nd columns
             uid_rec = [each_rec for each_rec in logins_list if re.search(uid, each_rec.record_uid, re.I)] # Get the record details from Keeper Security
             if uid_rec:
                 uid_rec = uid_rec[0]
